@@ -192,7 +192,7 @@ class RecordChangesetChange(models.Model):
         return self[field_name]
 
     def set_old_value(self):
-        """ Copy the value of the record to the 'old' field """
+        """Copy the value of the record to the 'old' field"""
         for change in self:
             # copy the existing record's value for the history
             old_value_for_write = self._value_for_changeset(
@@ -261,7 +261,7 @@ class RecordChangesetChange(models.Model):
                 )
 
     def cancel(self):
-        """ Reject the change """
+        """Reject the change"""
         for change in self:
             if not change.user_can_validate_changeset:
                 raise UserError(_("You don't have the rights to reject the changes."))
@@ -384,6 +384,8 @@ class RecordChangesetChange(models.Model):
         has_group = self.user_has_groups("base_changeset.group_changeset_user")
         for rec in self:
             can_validate = rec._is_change_pending() and (is_superuser or has_group)
+            if rec.rule_id.prevent_self_validation:
+                can_validate = can_validate and rec.modified_by_id != self.env.user
             rec.user_can_validate_changeset = can_validate
 
     @api.model

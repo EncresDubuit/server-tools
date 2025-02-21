@@ -6,7 +6,7 @@
 {
     "name": "JSONifier",
     "summary": "JSON-ify data for all models",
-    "version": "14.0.1.2.2",
+    "version": "14.0.1.2.3",
     "category": "Uncategorized",
     "website": "https://github.com/OCA/server-tools",
     "author": "Akretion, ACSONE, Camptocamp, Odoo Community Association (OCA)",
